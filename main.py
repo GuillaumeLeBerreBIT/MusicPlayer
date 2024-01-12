@@ -106,13 +106,15 @@ class MusicPlayer(ctk.CTk):
         # Need to get a view of all the songs in the selected directory
         # If u want to use a function parse it onto the Class want to have the button to have
         
-        self.scrollable_frame_btn = ScrollableBtnFrame(master = self.playlist_frame,
-                                                       music_directory = self.music_dir, 
-                                                       play_song = self.button_frame_event)
+        self.scrollable_frame_btn = ScrollableBtnFrame(
+                                        master = self.playlist_frame,
+                                        music_directory = self.music_dir,
+                                        play_song = self.button_frame_event)
         
         self.scrollable_frame_btn.place(relx = 0.1, rely= 0.1, relwidth = 0.8, relheight = 0.7)
         
-       
+        # Add a figure to the button
+        self.image_folder = ctk.CTkImage(dark_image = Image.open('graphics/widgets/music_album.png'), size = (32, 32))
         # Need to add a button to select the folder
         self.music_folder_btn = ctk.CTkButton(master = self.playlist_frame, 
                                            text = "Select Music folder", 
@@ -122,6 +124,7 @@ class MusicPlayer(ctk.CTk):
                                            hover_color = '#B9D3F1',
                                            border_width = 3,
                                            hover = True,
+                                           image = self.image_folder,
                                            command = self.select_folder)
         self.music_folder_btn.place(relx = 0.5, rely = 0.85, anchor = 'n', relwidth = 0.8, relheight = 0.08)
         
@@ -132,8 +135,6 @@ class MusicPlayer(ctk.CTk):
         self.scrollable_frame_btn.create_playlist(music_directory = self.music_dir)
     
     def button_frame_event(self, song):
-        # I get the song name >> Use in multiple events of course
-        print(f'Song played: {song}')
         # Want to connect the full path
         self.path_to_song = os.path.join(self.music_dir, song)
 
@@ -258,12 +259,13 @@ class ScrollableBtnFrame(ctk.CTkScrollableFrame):
         
         # Only want to have one column to use
         self.grid_columnconfigure(index = 0, weight = 1)
-        
+        # The folder to the music directory
         self.music_directory = music_directory
         # Undefined number of buttons to press
         self.button_list = []
-        
+        # Creating the playlist
         self.create_playlist(self.music_directory)
+        # Parse the function which is used in the main class to play the song
         self.playsong = play_song
     
     # Create the button for each song in the playlist
@@ -281,6 +283,8 @@ class ScrollableBtnFrame(ctk.CTkScrollableFrame):
         self.button_list = []
         # List with all the song names
         self.song_list = []
+        # Add the play button image
+        self.play_btn_img = ctk.CTkImage(dark_image = Image.open('graphics/widgets/play_button.png'), size = (32, 32))
         
         for i, song in enumerate(self.songs_to_play):
             splitted_ext = os.path.splitext(song)
@@ -295,6 +299,7 @@ class ScrollableBtnFrame(ctk.CTkScrollableFrame):
                                             border_color = '#495766',
                                             border_width = 3,
                                             hover_color = '#ABC4E2',
+                                            image = self.play_btn_img,
                                             command = lambda song = song:  self.playsong(song))
                 song_button.grid(row = i, column = 0, padx = 3, pady = 2)
                 self.button_list.append(song_button)   
