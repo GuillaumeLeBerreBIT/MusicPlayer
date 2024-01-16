@@ -21,6 +21,9 @@ class MusicPlayer(ctk.CTk):
         self.title("Music Player")
         self.geometry("800x780")
         
+        # Set the Icon of the window
+        self.iconbitmap('graphics/widgets/mp3.ico')
+        
         # Will Split up the window in 2 frames
         self.player_frame = ctk.CTkFrame(master = self,
                                         border_width = 5, 
@@ -84,22 +87,35 @@ class MusicPlayer(ctk.CTk):
         # Use the starting value of the slider as initial value for the volume
         pygame.mixer.music.set_volume(self.adjust_volume.get() / 100)
         
+        # Do not waant a label on the button so use Tkinter Buttons
+        self.image_vol_up = self.convert_image('graphics/buttons/volume_up.png', size = (48,48))
+        self.vol_up_label = tk.Label(master = self.player_frame, image = self.image_vol_up, borderwidth = 0, highlightthickness = 0, bg = '#2B2B2B', activebackground = '#2B2B2B')
+        self.vol_up_label.place(relx = 0.8, rely = 0.86, anchor ='center')
+        
+        self.image_vol_down = self.convert_image('graphics/buttons/volume_down.png', size = (48,48))
+        self.vol_down_label = tk.Button(master = self.player_frame, image = self.image_vol_down, borderwidth = 0, highlightthickness = 0, bg = '#2B2B2B', activebackground = '#2B2B2B')
+        self.vol_down_label.place(relx = 0.2, rely = 0.86, anchor ='center')
+        
         # FRAME 2
         # Use the initial directory
         self.music_dir = os.getcwd()
         # Define the position on the master window
         self.playlist_frame = ctk.CTkFrame(master = self,
                                            border_width = 5, 
-                                           border_color = '#282828')
+                                           border_color = '#2B2B2B',
+                                           fg_color = '#A53712')
         self.playlist_frame.place(relx = 0.6, y = 0, relwidth = 0.4, relheight = 1)
         
+        self.image_playlist = ctk.CTkImage(dark_image = Image.open("graphics/widgets/playlist.png"), size = (32, 32))
         # Add Simple title to the Frame 
         self.title_label = ctk.CTkLabel(master = self.playlist_frame, 
-                                        text = 'Playlist', 
+                                        text = 'Playlist\t', 
                                         corner_radius = 10, 
-                                        fg_color = '#920000',
-                                        text_color = '#F8F8F8',
-                                        font = (None, 18, 'bold')
+                                        fg_color = '#F8F8F8',
+                                        text_color = '#920000',
+                                        image = self.image_playlist,
+                                        compound = "right",
+                                        font = (None, 22, 'bold')
                                         )
         self.title_label.place(relx = 0.5, rely = 0.01, anchor = 'n', relwidth = 0.8, relheight = 0.08)
         
@@ -114,7 +130,7 @@ class MusicPlayer(ctk.CTk):
         self.scrollable_frame_btn.place(relx = 0.1, rely= 0.1, relwidth = 0.8, relheight = 0.7)
         
         # Add a figure to the button
-        self.image_folder = ctk.CTkImage(dark_image = Image.open('graphics/widgets/music_album.png'), size = (32, 32))
+        self.image_folder = ctk.CTkImage(dark_image = Image.open('graphics/buttons/folder.png'), size = (32, 32))
         # Need to add a button to select the folder
         self.music_folder_btn = ctk.CTkButton(master = self.playlist_frame, 
                                            text = "Select Music folder", 
@@ -284,7 +300,7 @@ class ScrollableBtnFrame(ctk.CTkScrollableFrame):
         # List with all the song names
         self.song_list = []
         # Add the play button image
-        self.play_btn_img = ctk.CTkImage(dark_image = Image.open('graphics/widgets/play_button.png'), size = (32, 32))
+        self.play_btn_img = ctk.CTkImage(dark_image = Image.open('graphics/widgets/song.png'), size = (32, 32))
         
         for i, song in enumerate(self.songs_to_play):
             splitted_ext = os.path.splitext(song)
@@ -295,11 +311,14 @@ class ScrollableBtnFrame(ctk.CTkScrollableFrame):
                                             width = 350, 
                                             height = 50, 
                                             corner_radius = 10,
-                                            fg_color = '#3D5D82',
+                                            fg_color = '#B3AEAD',
                                             border_color = '#495766',
                                             border_width = 3,
                                             hover_color = '#ABC4E2',
                                             image = self.play_btn_img,
+                                            compound = "left",
+                                            anchor = "w",
+                                            text_color = '#2B2B2B',
                                             command = lambda song = song:  self.playsong(song))
                 song_button.grid(row = i, column = 0, padx = 3, pady = 2)
                 self.button_list.append(song_button)   

@@ -19,6 +19,7 @@ Make sure you have the following dependencies installed:
 
 - Python 3.x
 - Tkinter
+- Customtkinter
 - Pillow (PIL)
 - Pygame
 - Mutagen
@@ -26,7 +27,7 @@ Make sure you have the following dependencies installed:
 You can install the required packages using the following command:
 
 ```
-pip install pillow pygame mutagen
+pip install pillow pygame mutagen customtkinter tkinter
 ```
 
 ## Usage
@@ -37,4 +38,7 @@ pip install pillow pygame mutagen
 4. The playlist frame displays the available songs in the selected music folder. Use the "Select Music folder" button to choose a directory containing your music files.
 5. Click on a song in the playlist to play it.
 
+## Credits
+
+Icons used by [surang](https://www.freepik.com/author/surang/icons/surang-red_752?t=f#from_element=resource_detail).
 
