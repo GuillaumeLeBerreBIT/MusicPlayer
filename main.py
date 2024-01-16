@@ -173,6 +173,7 @@ class MusicPlayer(ctk.CTk):
         pygame.mixer.music.play()
         # Once start playing the first song >> want to make sure it is kept in a loop and goes to the next song
         self.music_play_time()
+        self.change_color_button()
         self.get_time_song()
      
     def pause_song(self):
@@ -259,6 +260,19 @@ class MusicPlayer(ctk.CTk):
         self.value_progressbar = self.time_played_seconds / self.audio.info.length
         # Set the value for the Progressbar
         self.song_duration_bar.set(self.value_progressbar)
+    
+    def change_color_button(self):
+        # Get the index of the currenlty playing song
+        index = self.scrollable_frame_btn.song_list.index(self.currently_playing)
+        
+        for i, button in enumerate(self.scrollable_frame_btn.button_list):
+           
+            if index == i: 
+                button.configure(fg_color = "#F1DF76")
+            else:
+                button.configure(fg_color = '#B3AEAD')
+
+        self.after(1000, self.change_color_button)
     
     # Simple function to convert the images to display
     def convert_image(self, image, size):

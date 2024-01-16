@@ -4,7 +4,7 @@ This is a simple music player application developed using Python and the Tkinter
 
 ## Screenshots
 
-![MP3](graphics/Example_MP.png)
+![MP3](graphics/preview/Example_MP.png)
 
 ## Features
 
