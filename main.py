@@ -93,7 +93,7 @@ class MusicPlayer(ctk.CTk):
         self.vol_up_label.place(relx = 0.8, rely = 0.86, anchor ='center')
         
         self.image_vol_down = self.convert_image('graphics/buttons/volume_down.png', size = (48,48))
-        self.vol_down_label = tk.Button(master = self.player_frame, image = self.image_vol_down, borderwidth = 0, highlightthickness = 0, bg = '#2B2B2B', activebackground = '#2B2B2B')
+        self.vol_down_label = tk.Label(master = self.player_frame, image = self.image_vol_down, borderwidth = 0, highlightthickness = 0, bg = '#2B2B2B', activebackground = '#2B2B2B')
         self.vol_down_label.place(relx = 0.2, rely = 0.86, anchor ='center')
         
         # FRAME 2
